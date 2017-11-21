@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Beer</title>
+	<meta charset="utf-8" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>New Order</h1>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: orders">
+                <tr>
+                    <td><select class="form-control form-control-sm" data-bind="options: $root.AvailableBeers, value: beerType, optionsText: 'beerName'"></select></td>
+                    <td><select class="form-control form-control-sm" data-bind="options: $root.AvailableQs, value: quantity, optionsText: 'display'"></select></td>
+                    <td data-bind="text: subtotal"></td>
+                    <td><a class="btn btn-xs btn-danger" href="#" data-bind="click: $root.removeOrder">Remove</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-sm btn-info" data-bind="click: addOrder, enable: orders().length < 4">Add</button>
+        <h4>Selected Beer Descriptions:</h4>
+        <table class="table table-condensed" data-bind="foreach: orders">
+            <tbody>
+                <tr>
+                    <td data-bind="text: beerType().beerName"></td>
+                    <td data-bind="text: beerType().description"></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 data-bind="visible: grandTotal() > 0">
+            Total: $<span data-bind="text: grandTotal().toFixed(2)"></span>
+        </h2>
+        
+    </div>
+    
+
+    
+    <script src="scripts/jquery-1.9.1.js"></script>
+    <script src="scripts/bootstrap.js"></script>   
+    <script src="scripts/knockout-3.4.2.debug.js"></script>
+    <script src="scripts/Beer.js"></script>
+</body>
+</html>
